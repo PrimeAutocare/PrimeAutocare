@@ -21,10 +21,6 @@ function Reports() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    loadAll();
-  }, []);
-
   async function loadAll() {
     setLoading(true);
     setError("");
@@ -41,6 +37,12 @@ function Reports() {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+  // Standard "fetch on mount" pattern; loadAll manages its own loading/error state.
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  loadAll();
+  }, []);
 
   if (loading) {
     return <p className="text-zinc-400">Loading...</p>;
@@ -82,21 +84,23 @@ function Reports() {
         ))}
       </div>
 
+      <h3 className="text-lg font-semibold mb-4 text-white">AI Review</h3>
+
       {review && review.content ? (
         <div className="bg-zinc-800 rounded-lg p-6 max-w-4xl">
-            <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-4">
             <h4 className="text-lg font-semibold text-white">AI Review</h4>
             {extractPeriod(review.content) && (
-                <span className="text-zinc-500 text-sm">{extractPeriod(review.content)}</span>
+              <span className="text-zinc-500 text-sm">{extractPeriod(review.content)}</span>
             )}
-            </div>
-            <div className="prose prose-invert prose-sm max-w-none prose-headings:text-white prose-strong:text-white prose-a:text-orange-400">
+          </div>
+          <div className="prose prose-invert prose-sm max-w-none prose-headings:text-white prose-strong:text-white prose-a:text-orange-400">
             <ReactMarkdown>{stripReviewHeader(review.content)}</ReactMarkdown>
-            </div>
+          </div>
         </div>
-        ) : (
+      ) : (
         <p className="text-zinc-500">No AI review available yet.</p>
-        )}
+      )}
     </div>
   );
 }
