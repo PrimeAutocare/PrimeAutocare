@@ -1,5 +1,19 @@
 import { useEffect, useState } from "react";
+import ReactMarkdown from "react-markdown";
 import { fetchAllReports, fetchAiReview } from "../api/reports";
+
+function extractPeriod(raw) {
+  if (!raw) return null;
+  const match = raw.match(/^-\s+\*\*Period:\*\*\s*(.+)$/m);
+  return match ? match[1].trim() : null;
+}
+
+function stripReviewHeader(raw) {
+  if (!raw) return raw;
+  const dividerIndex = raw.indexOf("\n---");
+  if (dividerIndex === -1) return raw;
+  return raw.slice(dividerIndex + 4).replace(/^\s+/, "");
+}
 
 function Reports() {
   const [reports, setReports] = useState([]);
@@ -54,7 +68,7 @@ function Reports() {
                 </p>
               )}
             </div>
-            {r.file && (
+            {r.file ? (
               <a
                 href={r.file.downloadUrl}
                 target="_blank"
@@ -63,35 +77,26 @@ function Reports() {
               >
                 Download
               </a>
-            )}
+            ) : null}
           </div>
         ))}
       </div>
 
-      <h3 className="text-lg font-semibold mb-4 text-white">AI Review</h3>
-
       {review && review.content ? (
         <div className="bg-zinc-800 rounded-lg p-6 max-w-4xl">
-          <div className="flex justify-between items-center mb-4">
-            <p className="text-zinc-400 text-sm">
-              {review.file ? review.file.name : ""}
-            </p>
-            <a
-              href={review.file ? review.file.downloadUrl : "#"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-orange-400 hover:text-orange-300 text-sm"
-            >
-              Open raw file
-            </a>
-          </div>
-          <pre className="whitespace-pre-wrap text-zinc-200 text-sm font-sans leading-relaxed">
-            {review.content}
-          </pre>
+            <div className="flex items-center justify-between mb-4">
+            <h4 className="text-lg font-semibold text-white">AI Review</h4>
+            {extractPeriod(review.content) && (
+                <span className="text-zinc-500 text-sm">{extractPeriod(review.content)}</span>
+            )}
+            </div>
+            <div className="prose prose-invert prose-sm max-w-none prose-headings:text-white prose-strong:text-white prose-a:text-orange-400">
+            <ReactMarkdown>{stripReviewHeader(review.content)}</ReactMarkdown>
+            </div>
         </div>
-      ) : (
+        ) : (
         <p className="text-zinc-500">No AI review available yet.</p>
-      )}
+        )}
     </div>
   );
 }
