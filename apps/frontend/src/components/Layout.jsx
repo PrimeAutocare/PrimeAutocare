@@ -10,12 +10,14 @@ const ADMIN_NAV = [
   { to: "/job-catalog", label: "Job Catalog" },
   { to: "/invoices", label: "Invoices" },
   { to: "/attendance", label: "Attendance" },
+  { to: "/reports", label: "Reports" },
 ];
 
 const EMPLOYEE_NAV = [
   { to: "/", label: "Dashboard" },
   { to: "/jobs", label: "My Jobs" },
   { to: "/attendance", label: "Attendance" },
+  { to: "/reports", label: "Reports" },
 ];
 
 function Layout() {
