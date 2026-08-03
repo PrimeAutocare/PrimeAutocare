@@ -15,7 +15,7 @@ describe("Login", () => {
   it("renders the login form", () => {
     renderLogin(vi.fn());
 
-    expect(screen.getByRole("heading", { name: "PrimeAutocare" })).toBeInTheDocument();
+    expect(screen.getByRole("img", { name: "PrimeAutocare" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Log In" })).toBeInTheDocument();
   });
 
