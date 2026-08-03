@@ -103,15 +103,15 @@ function Dashboard() {
 
   const cards = isAdmin
     ? [
-        { label: "Pending Jobs", value: pendingJobs, icon: ClockIcon, tint: "text-yellow-400 bg-yellow-500/10" },
-        { label: "In-Progress Jobs", value: inProgressJobs, icon: ArrowPathIcon, tint: "text-blue-400 bg-blue-500/10" },
-        { label: "Completed Today", value: completedToday, icon: CheckCircleIcon, tint: "text-green-400 bg-green-500/10" },
-        { label: "Outstanding Invoices", value: outstandingInvoices, icon: CurrencyDollarIcon, tint: "text-red-400 bg-red-500/10" },
+        { label: "Pending Jobs", value: pendingJobs, icon: ClockIcon, color: "bg-yellow-600" },
+        { label: "In-Progress Jobs", value: inProgressJobs, icon: ArrowPathIcon, color: "bg-blue-600" },
+        { label: "Completed Today", value: completedToday, icon: CheckCircleIcon, color: "bg-green-600" },
+        { label: "Outstanding Invoices", value: outstandingInvoices, icon: CurrencyDollarIcon, color: "bg-red-600" },
       ]
     : [
-        { label: "My Pending Jobs", value: pendingJobs, icon: ClockIcon, tint: "text-yellow-400 bg-yellow-500/10" },
-        { label: "My In-Progress Jobs", value: inProgressJobs, icon: ArrowPathIcon, tint: "text-blue-400 bg-blue-500/10" },
-        { label: "My Completed Today", value: completedToday, icon: CheckCircleIcon, tint: "text-green-400 bg-green-500/10" },
+        { label: "My Pending Jobs", value: pendingJobs, icon: ClockIcon, color: "bg-yellow-600" },
+        { label: "My In-Progress Jobs", value: inProgressJobs, icon: ArrowPathIcon, color: "bg-blue-600" },
+        { label: "My Completed Today", value: completedToday, icon: CheckCircleIcon, color: "bg-green-600" },
       ];
 
   const recentJobs = [...jobs].sort((a, b) => (a.job_id < b.job_id ? 1 : -1)).slice(0, 5);
@@ -129,19 +129,19 @@ function Dashboard() {
           return (
             <div
               key={card.label}
-              className="bg-zinc-800 rounded-xl p-5 shadow-sm shadow-black/20 hover:shadow-md hover:shadow-black/30 transition"
+              className={`${card.color} rounded-xl p-5 shadow-sm shadow-black/20 hover:shadow-md hover:shadow-black/30 transition`}
             >
-              <div className={`inline-flex p-2 rounded-lg mb-3 ${card.tint}`}>
+              <div className="inline-flex p-2 rounded-lg mb-3 bg-white/15 text-white">
                 <Icon className="w-5 h-5" />
               </div>
               <p className="text-3xl font-bold text-white">{card.value}</p>
-              <p className="text-sm text-zinc-400 mt-1">{card.label}</p>
+              <p className="text-sm text-white/80 mt-1">{card.label}</p>
             </div>
           );
         })}
         {!isAdmin && (
-          <div className="bg-zinc-800 rounded-xl p-5 shadow-sm shadow-black/20 hover:shadow-md hover:shadow-black/30 transition">
-            <div className="inline-flex p-2 rounded-lg mb-3 text-cyan-400 bg-cyan-500/10">
+          <div className="bg-cyan-600 rounded-xl p-5 shadow-sm shadow-black/20 hover:shadow-md hover:shadow-black/30 transition">
+            <div className="inline-flex p-2 rounded-lg mb-3 bg-white/15 text-white">
               <ArrowRightOnRectangleIcon className="w-5 h-5" />
             </div>
             <p className="text-xl font-bold text-white">
@@ -149,7 +149,7 @@ function Dashboard() {
                 ? `Since ${new Date(openAttendance.clock_in).toLocaleTimeString()}`
                 : "Clocked out"}
             </p>
-            <p className="text-sm text-zinc-400 mt-1">Clock-in Status</p>
+            <p className="text-sm text-white/80 mt-1">Clock-in Status</p>
           </div>
         )}
       </div>
