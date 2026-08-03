@@ -55,6 +55,9 @@ function ArrowRightOnRectangleIcon(props) {
   );
 }
 
+const STATUS_LABELS = { P: "Pending", I: "In-progress", C: "Completed", X: "Cancelled" };
+const STATUS_STYLES = { P: "text-yellow-400", I: "text-blue-400", C: "text-green-400", X: "text-zinc-500" };
+
 function Dashboard() {
   const { employee } = useAuth();
   const isAdmin = canManage(employee, ["A"]);
@@ -171,7 +174,9 @@ function Dashboard() {
                 <td className="py-2 pr-4">{j.job_id}</td>
                 <td className="py-2 pr-4">{j.vehi_id}</td>
                 <td className="py-2 pr-4">{j.job_no}</td>
-                <td className="py-2 pr-4">{j.status}</td>
+                <td className={`py-2 pr-4 ${STATUS_STYLES[j.status] ?? ""}`}>
+                  {STATUS_LABELS[j.status] ?? j.status}
+                </td>
               </tr>
             ))}
             {recentJobs.length === 0 && (
