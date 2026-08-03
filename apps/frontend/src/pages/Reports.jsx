@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { fetchAllReports, fetchAiReview } from "../api/reports";
+import { fetchAllReports, fetchAiReview, fetchArchivedReports } from "../api/reports";
+import Modal from "../components/Modal";
 
 function extractPeriod(raw) {
   if (!raw) return null;
@@ -20,6 +21,11 @@ function Reports() {
   const [review, setReview] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const [selected, setSelected] = useState(null);
+  const [archived, setArchived] = useState([]);
+  const [archiveLoading, setArchiveLoading] = useState(false);
+  const [archiveError, setArchiveError] = useState("");
 
   async function loadAll() {
     setLoading(true);
@@ -44,6 +50,21 @@ function Reports() {
   loadAll();
   }, []);
 
+  async function openReport(report) {
+    setSelected(report);
+    setArchived([]);
+    setArchiveError("");
+    setArchiveLoading(true);
+    try {
+      const files = await fetchArchivedReports(report.path);
+      setArchived(files);
+    } catch (err) {
+      setArchiveError(err.message);
+    } finally {
+      setArchiveLoading(false);
+    }
+  }
+
   if (loading) {
     return <p className="text-zinc-400">Loading...</p>;
   }
@@ -61,7 +82,13 @@ function Reports() {
         {reports.map((r) => (
           <div key={r.key} className="bg-zinc-800 p-5 rounded-lg flex flex-col justify-between">
             <div>
-              <p className="text-white font-semibold mb-1">{r.label}</p>
+              <button
+                type="button"
+                onClick={() => openReport(r)}
+                className="text-white font-semibold mb-1 hover:text-amber-400 transition text-left"
+              >
+                {r.label}
+              </button>
               {r.file ? (
                 <p className="text-zinc-400 text-sm mb-4 break-all">{r.file.name}</p>
               ) : (
@@ -101,6 +128,55 @@ function Reports() {
       ) : (
         <p className="text-zinc-500">No AI review available yet.</p>
       )}
+
+      <Modal isOpen={!!selected} onClose={() => setSelected(null)} title={selected?.label ?? ""}>
+        {selected && (
+          <div className="flex flex-col gap-4">
+            <div>
+              <p className="text-zinc-400 text-sm mb-1">Current</p>
+              {selected.file ? (
+                <a
+                  href={selected.file.downloadUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block bg-zinc-700 hover:bg-zinc-600 rounded px-3 py-2 text-sm text-white transition break-all"
+                >
+                  {selected.file.name}
+                </a>
+              ) : (
+                <p className="text-zinc-500 text-sm">
+                  {selected.error ? "Unavailable" : "No report generated yet"}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <p className="text-zinc-400 text-sm mb-1">Archived</p>
+              {archiveLoading ? (
+                <p className="text-zinc-500 text-sm">Loading...</p>
+              ) : archiveError ? (
+                <p className="text-red-400 text-sm">{archiveError}</p>
+              ) : archived.length === 0 ? (
+                <p className="text-zinc-500 text-sm">No archived reports</p>
+              ) : (
+                <div className="flex flex-col gap-1 max-h-64 overflow-y-auto">
+                  {archived.map((f) => (
+                    <a
+                      key={f.name}
+                      href={f.downloadUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block bg-zinc-700 hover:bg-zinc-600 rounded px-3 py-2 text-sm text-white transition break-all"
+                    >
+                      {f.name}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 }

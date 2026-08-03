@@ -12,17 +12,32 @@ const REPORT_FOLDERS = [
 
 const AI_REVIEW_FOLDER = { key: "ai_review", label: "AI Review", path: "AI Review" };
 
-async function fetchFolderCurrentFile(path) {
+async function fetchFolderContents(path) {
   const url = `${REPO_API}/${encodeURIComponent(path)}`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(`Failed to load ${path} (${res.status})`);
-  const items = await res.json();
+  return res.json();
+}
+
+async function fetchFolderCurrentFile(path) {
+  const items = await fetchFolderContents(path);
   // The current file sits directly in the folder; archive/ is a subdirectory, so filtering
   // to type "file" naturally excludes it.
   const file = items.find((item) => item.type === "file");
   return file
     ? { name: file.name, downloadUrl: file.download_url }
     : null;
+}
+
+export async function fetchArchivedReports(path) {
+  try {
+    const items = await fetchFolderContents(`${path}/archive`);
+    return items
+      .filter((item) => item.type === "file")
+      .map((item) => ({ name: item.name, downloadUrl: item.download_url }));
+  } catch {
+    return [];
+  }
 }
 
 export async function fetchAllReports() {

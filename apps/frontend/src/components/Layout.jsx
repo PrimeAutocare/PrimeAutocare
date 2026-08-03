@@ -33,7 +33,7 @@ function Layout() {
           <img
             src={primeLogo}
             alt="PrimeAutocare"
-            className="h-10 object-contain"
+            className="h-16 object-contain"
           />
         </div>
 
