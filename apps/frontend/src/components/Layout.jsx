@@ -32,10 +32,10 @@ function Layout() {
         <img
           src={primeLogo}
           alt="PrimeAutocare"
-          className="h-10 mb-8 shrink-0 object-contain"
+          className="h-10 shrink-0 object-contain"
         />
 
-        <nav className="flex flex-col gap-1 flex-1 overflow-y-auto">
+        <nav className="flex flex-col gap-1 flex-1">
           {navItems.map((item) => (
             <NavLink
               key={item.to}

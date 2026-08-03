@@ -1,2 +1,12 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+@theme {
+  /* Retint the "orange" palette to the logo's gold so existing
+     bg-orange-*/ring-orange-*/text-orange-* utilities match the brand. */
+  --color-orange-300: #f7c766;
+  --color-orange-400: #f5bb43;
+  --color-orange-500: #f5ac29;
+  --color-orange-600: #dd9720;
+  --color-orange-700: #b87c1a;
+}
