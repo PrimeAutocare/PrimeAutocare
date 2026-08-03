@@ -28,14 +28,16 @@ function Layout() {
 
   return (
     <div className="h-screen flex bg-zinc-900 text-white overflow-hidden">
-      <aside className="w-64 h-screen bg-zinc-800 flex flex-col p-4 sticky top-0">
-        <img
-          src={primeLogo}
-          alt="PrimeAutocare"
-          className="h-10 mb-8 shrink-0 object-contain"
-        />
+      <aside className="w-64 h-screen bg-zinc-800 flex flex-col sticky top-0">
+        <div className="flex justify-center pt-4 pb-8 shrink-0">
+          <img
+            src={primeLogo}
+            alt="PrimeAutocare"
+            className="h-10 object-contain"
+          />
+        </div>
 
-        <nav className="flex flex-col gap-1 flex-1 overflow-y-auto">
+        <nav className="flex flex-col gap-1 flex-1 overflow-y-auto px-4">
           {navItems.map((item) => (
             <NavLink
               key={item.to}
@@ -54,7 +56,7 @@ function Layout() {
           ))}
         </nav>
 
-        <div className="border-t border-zinc-700 pt-4 mt-4 shrink-0">
+        <div className="border-t border-zinc-700 pt-4 mt-4 px-4 pb-4 shrink-0">
           <p className="text-sm text-zinc-400 mb-2">
             {employee?.emp_gname} {employee?.emp_fname}
           </p>
