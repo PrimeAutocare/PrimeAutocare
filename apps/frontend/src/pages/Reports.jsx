@@ -75,7 +75,7 @@ function Reports() {
                 href={r.file.downloadUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-orange-600 hover:bg-orange-500 text-white text-sm font-semibold text-center py-2 rounded transition"
+                className="bg-amber-600 hover:bg-amber-500 text-white text-sm font-semibold text-center py-2 rounded transition"
               >
                 Download
               </a>
@@ -94,7 +94,7 @@ function Reports() {
               <span className="text-zinc-500 text-sm">{extractPeriod(review.content)}</span>
             )}
           </div>
-          <div className="prose prose-invert prose-sm max-w-none prose-headings:text-white prose-strong:text-white prose-a:text-orange-400">
+          <div className="prose prose-invert prose-sm max-w-none prose-headings:text-white prose-strong:text-white prose-a:text-amber-400">
             <ReactMarkdown>{stripReviewHeader(review.content)}</ReactMarkdown>
           </div>
         </div>

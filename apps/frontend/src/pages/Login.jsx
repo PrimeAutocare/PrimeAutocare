@@ -37,7 +37,7 @@ function Login() {
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="w-full p-2 mb-4 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500"
+          className="w-full p-2 mb-4 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500"
           required
         />
 
@@ -46,13 +46,13 @@ function Login() {
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 mb-6 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500"
+          className="w-full p-2 mb-6 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500"
           required
         />
 
         <button
           type="submit"
-          className="w-full bg-orange-600 hover:bg-orange-500 text-white font-semibold py-2 rounded transition"
+          className="w-full bg-amber-600 hover:bg-amber-500 text-white font-semibold py-2 rounded transition"
         >
           Log In
         </button>

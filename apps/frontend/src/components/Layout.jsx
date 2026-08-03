@@ -44,7 +44,7 @@ function Layout() {
               className={({ isActive }) =>
                 `px-3 py-2 rounded transition ${
                   isActive
-                    ? "bg-orange-600 text-white"
+                    ? "bg-amber-600 text-white"
                     : "text-zinc-300 hover:bg-zinc-700"
                 }`
               }

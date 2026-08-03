@@ -101,7 +101,7 @@ function Employees() {
         {canCreate && (
           <button
             onClick={() => setShowModal(true)}
-            className="bg-orange-600 hover:bg-orange-500 text-white font-semibold px-4 py-2 rounded transition"
+            className="bg-amber-600 hover:bg-amber-500 text-white font-semibold px-4 py-2 rounded transition"
           >
             + Add Employee
           </button>
@@ -159,38 +159,38 @@ function Employees() {
             <div>
               <label className="block text-zinc-300 text-sm mb-1">First Name</label>
               <input type="text" value={gname} onChange={(e) => setGname(e.target.value)}
-                className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500" required />
+                className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500" required />
             </div>
             <div>
               <label className="block text-zinc-300 text-sm mb-1">Last Name</label>
               <input type="text" value={fname} onChange={(e) => setFname(e.target.value)}
-                className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500" required />
+                className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500" required />
             </div>
           </div>
           <div>
             <label className="block text-zinc-300 text-sm mb-1">Phone</label>
             <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+94771234567"
-              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500" required />
+              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500" required />
           </div>
           <div>
             <label className="block text-zinc-300 text-sm mb-1">Email</label>
             <input type="email" value={emailInput} onChange={(e) => setEmailInput(e.target.value)}
-              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500" required />
+              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500" required />
           </div>
           <div>
             <label className="block text-zinc-300 text-sm mb-1">Username</label>
             <input type="text" value={username} onChange={(e) => setUsername(e.target.value)}
-              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500" required />
+              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500" required />
           </div>
           <div>
             <label className="block text-zinc-300 text-sm mb-1">Password</label>
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500" required />
+              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500" required />
           </div>
           <div>
             <label className="block text-zinc-300 text-sm mb-1">Role</label>
             <select value={role} onChange={(e) => setRole(e.target.value)}
-              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500">
+              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500">
               <option value="T">Technician</option>
               <option value="S">Supervisor</option>
               <option value="A">Admin</option>
@@ -199,10 +199,10 @@ function Employees() {
           <div>
             <label className="block text-zinc-300 text-sm mb-1">Hourly Rate</label>
             <input type="number" step="0.01" value={hourlyRate} onChange={(e) => setHourlyRate(e.target.value)}
-              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500" required />
+              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500" required />
           </div>
           <button type="submit" disabled={submitting}
-            className="bg-orange-600 hover:bg-orange-500 disabled:opacity-50 text-white font-semibold py-2 rounded transition">
+            className="bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white font-semibold py-2 rounded transition">
             {submitting ? "Adding..." : "Add Employee"}
           </button>
         </form>

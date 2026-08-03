@@ -94,7 +94,7 @@ function Vehicles() {
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-white">Vehicles</h2>
         <button onClick={() => setShowModal(true)}
-          className="bg-orange-600 hover:bg-orange-500 text-white font-semibold px-4 py-2 rounded transition">
+          className="bg-amber-600 hover:bg-amber-500 text-white font-semibold px-4 py-2 rounded transition">
           + Register Vehicle
         </button>
       </div>
@@ -142,7 +142,7 @@ function Vehicles() {
           <div>
             <label className="block text-zinc-300 text-sm mb-1">Customer (optional)</label>
             <select value={custNo} onChange={(e) => setCustNo(e.target.value)}
-              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500">
+              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500">
               <option value="">No customer</option>
               {customers.map((c) => <option key={c.cust_no} value={c.cust_no}>{c.cust_name}</option>)}
             </select>
@@ -150,27 +150,27 @@ function Vehicles() {
           <div>
             <label className="block text-zinc-300 text-sm mb-1">License Plate</label>
             <input type="text" value={license} onChange={(e) => setLicense(e.target.value)} placeholder="CAB-1234"
-              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500" required />
+              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500" required />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-zinc-300 text-sm mb-1">Make</label>
               <input type="text" value={make} onChange={(e) => setMake(e.target.value)}
-                className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500" required />
+                className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500" required />
             </div>
             <div>
               <label className="block text-zinc-300 text-sm mb-1">Model</label>
               <input type="text" value={model} onChange={(e) => setModel(e.target.value)}
-                className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500" required />
+                className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500" required />
             </div>
           </div>
           <div>
             <label className="block text-zinc-300 text-sm mb-1">Year</label>
             <input type="number" value={year} onChange={(e) => setYear(e.target.value)}
-              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500" required />
+              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500" required />
           </div>
           <button type="submit" disabled={submitting}
-            className="bg-orange-600 hover:bg-orange-500 disabled:opacity-50 text-white font-semibold py-2 rounded transition">
+            className="bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white font-semibold py-2 rounded transition">
             {submitting ? "Registering..." : "Register Vehicle"}
           </button>
         </form>

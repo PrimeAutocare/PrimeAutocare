@@ -147,7 +147,7 @@ function NewJobModal({ isOpen, onClose, onCreated, jobTypes, employees }) {
               value={license}
               onChange={(e) => { setLicense(e.target.value); setLookupDone(false); setVehicleMatch(null); }}
               placeholder="CAB-1234"
-              className="flex-1 p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500"
+              className="flex-1 p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500"
               required
             />
             <button type="button" onClick={handleLicenseLookup}
@@ -176,7 +176,7 @@ function NewJobModal({ isOpen, onClose, onCreated, jobTypes, employees }) {
                     if (e.target.value === "__new__") { setMakeIsNew(true); setMake(""); setModels([]); }
                     else { setMakeIsNew(false); handleMakeChange(e.target.value); }
                   }}
-                  className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500"
                 >
                   <option value="" disabled>Select make</option>
                   {makes.map((m) => <option key={m} value={m}>{m}</option>)}
@@ -184,7 +184,7 @@ function NewJobModal({ isOpen, onClose, onCreated, jobTypes, employees }) {
                 </select>
                 {makeIsNew && (
                   <input type="text" value={make} onChange={(e) => setMake(e.target.value)}
-                    placeholder="New make" className="w-full mt-2 p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500" required />
+                    placeholder="New make" className="w-full mt-2 p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500" required />
                 )}
               </div>
               <div>
@@ -195,7 +195,7 @@ function NewJobModal({ isOpen, onClose, onCreated, jobTypes, employees }) {
                     if (e.target.value === "__new__") { setModelIsNew(true); setModel(""); }
                     else { setModelIsNew(false); setModel(e.target.value); }
                   }}
-                  className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500"
+                  className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500"
                 >
                   <option value="" disabled>Select model</option>
                   {models.map((m) => <option key={m} value={m}>{m}</option>)}
@@ -203,7 +203,7 @@ function NewJobModal({ isOpen, onClose, onCreated, jobTypes, employees }) {
                 </select>
                 {modelIsNew && (
                   <input type="text" value={model} onChange={(e) => setModel(e.target.value)}
-                    placeholder="New model" className="w-full mt-2 p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500" required />
+                    placeholder="New model" className="w-full mt-2 p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500" required />
                 )}
               </div>
             </div>
@@ -211,7 +211,7 @@ function NewJobModal({ isOpen, onClose, onCreated, jobTypes, employees }) {
             <div>
               <label className="block text-zinc-300 text-sm mb-1">Year</label>
               <input type="number" value={year} onChange={(e) => setYear(e.target.value)}
-                className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500" required />
+                className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500" required />
             </div>
 
             <div>
@@ -222,7 +222,7 @@ function NewJobModal({ isOpen, onClose, onCreated, jobTypes, employees }) {
                 onChange={(e) => { setCustIsNew(false); handleCustSearch(e.target.value); }}
                 placeholder="Search by name, phone or email"
                 disabled={custIsNew}
-                className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500 disabled:opacity-50"
+                className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500 disabled:opacity-50"
               />
               {custResults.length > 0 && !custNo && !custIsNew && (
                 <div className="mt-1 bg-zinc-700 rounded max-h-32 overflow-y-auto">
@@ -237,17 +237,17 @@ function NewJobModal({ isOpen, onClose, onCreated, jobTypes, employees }) {
               )}
               <button type="button"
                 onClick={() => { setCustIsNew(!custIsNew); setCustNo(""); setCustQuery(""); setCustResults([]); }}
-                className="text-orange-400 hover:text-orange-300 text-xs mt-1">
+                className="text-amber-400 hover:text-amber-300 text-xs mt-1">
                 {custIsNew ? "Search existing customer instead" : "+ Add new customer"}
               </button>
               {custIsNew && (
                 <div className="flex flex-col gap-2 mt-2">
                   <input type="text" value={custName} onChange={(e) => setCustName(e.target.value)}
-                    placeholder="Name" className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500" />
+                    placeholder="Name" className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500" />
                   <input type="text" value={custPhone} onChange={(e) => setCustPhone(e.target.value)}
-                    placeholder="Phone" className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500" />
+                    placeholder="Phone" className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500" />
                   <input type="email" value={custEmail} onChange={(e) => setCustEmail(e.target.value)}
-                    placeholder="Email" className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500" />
+                    placeholder="Email" className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500" />
                 </div>
               )}
             </div>
@@ -257,7 +257,7 @@ function NewJobModal({ isOpen, onClose, onCreated, jobTypes, employees }) {
         <div>
           <label className="block text-zinc-300 text-sm mb-1">Assigned Employee</label>
           <select value={empNo} onChange={(e) => setEmpNo(e.target.value)}
-            className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500" required>
+            className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500" required>
             <option value="" disabled>Select an employee</option>
             {employees.map((e) => <option key={e.emp_no} value={e.emp_no}>{e.emp_gname} {e.emp_fname}</option>)}
           </select>
@@ -266,14 +266,14 @@ function NewJobModal({ isOpen, onClose, onCreated, jobTypes, employees }) {
         <div>
           <label className="block text-zinc-300 text-sm mb-1">Job Category</label>
           <select value={jobNo} onChange={(e) => setJobNo(e.target.value)}
-            className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500" required>
+            className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500" required>
             <option value="" disabled>Select a job type</option>
             {jobTypes.map((j) => <option key={j.job_no} value={j.job_no}>{j.job_desc}</option>)}
           </select>
         </div>
 
         <button type="submit" disabled={submitting || !lookupDone}
-          className="bg-orange-600 hover:bg-orange-500 disabled:opacity-50 text-white font-semibold py-2 rounded transition">
+          className="bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white font-semibold py-2 rounded transition">
           {submitting ? "Creating..." : "Create Job"}
         </button>
       </form>

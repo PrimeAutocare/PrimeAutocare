@@ -77,7 +77,7 @@ function Customers() {
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-white">Customers</h2>
         <button onClick={() => setShowModal(true)}
-          className="bg-orange-600 hover:bg-orange-500 text-white font-semibold px-4 py-2 rounded transition">
+          className="bg-amber-600 hover:bg-amber-500 text-white font-semibold px-4 py-2 rounded transition">
           + Add Customer
         </button>
       </div>
@@ -121,20 +121,20 @@ function Customers() {
           <div>
             <label className="block text-zinc-300 text-sm mb-1">Full Name</label>
             <input type="text" value={name} onChange={(e) => setName(e.target.value)}
-              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500" required />
+              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500" required />
           </div>
           <div>
             <label className="block text-zinc-300 text-sm mb-1">Phone</label>
             <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+94771234567"
-              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500" required />
+              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500" required />
           </div>
           <div>
             <label className="block text-zinc-300 text-sm mb-1">Email</label>
             <input type="email" value={emailInput} onChange={(e) => setEmailInput(e.target.value)}
-              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-orange-500" required />
+              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500" required />
           </div>
           <button type="submit" disabled={submitting}
-            className="bg-orange-600 hover:bg-orange-500 disabled:opacity-50 text-white font-semibold py-2 rounded transition">
+            className="bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white font-semibold py-2 rounded transition">
             {submitting ? "Adding..." : "Add Customer"}
           </button>
         </form>

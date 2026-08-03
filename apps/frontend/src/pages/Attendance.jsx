@@ -95,7 +95,7 @@ function Attendance() {
           </button>
         ) : (
           <button onClick={handleClockIn} disabled={submitting}
-            className="bg-orange-600 hover:bg-orange-500 disabled:opacity-50 text-white font-semibold px-4 py-2 rounded transition">
+            className="bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white font-semibold px-4 py-2 rounded transition">
             {submitting ? "Clocking in..." : "Clock In"}
           </button>
         )}

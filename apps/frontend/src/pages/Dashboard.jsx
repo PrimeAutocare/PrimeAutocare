@@ -52,13 +52,13 @@ function Dashboard() {
   const cards = isAdmin
     ? [
         { label: "Pending Jobs", value: pendingJobs, color: "bg-yellow-600" },
-        { label: "In-Progress Jobs", value: inProgressJobs, color: "bg-orange-600" },
+        { label: "In-Progress Jobs", value: inProgressJobs, color: "bg-amber-600" },
         { label: "Completed Today", value: completedToday, color: "bg-green-600" },
         { label: "Outstanding Invoices", value: outstandingInvoices, color: "bg-red-600" },
       ]
     : [
         { label: "My Pending Jobs", value: pendingJobs, color: "bg-yellow-600" },
-        { label: "My In-Progress Jobs", value: inProgressJobs, color: "bg-orange-600" },
+        { label: "My In-Progress Jobs", value: inProgressJobs, color: "bg-amber-600" },
         { label: "My Completed Today", value: completedToday, color: "bg-green-600" },
       ];
 

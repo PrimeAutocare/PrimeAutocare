@@ -55,7 +55,7 @@ function JobCatalog() {
     }
   }
 
-  if (loading) return <p className="text-slate-400">Loading...</p>;
+  if (loading) return <p className="text-zinc-400">Loading...</p>;
 
   return (
     <div>
@@ -63,7 +63,7 @@ function JobCatalog() {
 
       <form
         onSubmit={handleSubmit}
-        className="bg-slate-800 p-6 rounded-lg mb-8 flex flex-col gap-4 max-w-lg"
+        className="bg-zinc-800 p-6 rounded-lg mb-8 flex flex-col gap-4 max-w-lg"
       >
         <h3 className="text-lg font-semibold">Add New Job Type</h3>
 
@@ -74,13 +74,13 @@ function JobCatalog() {
         )}
 
         <div>
-          <label className="block text-slate-300 text-sm mb-1">Description</label>
+          <label className="block text-zinc-300 text-sm mb-1">Description</label>
           <input
             type="text"
             value={jobDesc}
             onChange={(e) => setJobDesc(e.target.value)}
             placeholder="e.g. Tyre Rotation"
-            className="w-full p-2 rounded bg-slate-700 text-white outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500"
             required
           />
         </div>
@@ -88,7 +88,7 @@ function JobCatalog() {
         <button
           type="submit"
           disabled={submitting}
-          className="bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-semibold py-2 rounded transition"
+          className="bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white font-semibold py-2 rounded transition"
         >
           {submitting ? "Adding..." : "Add Job Type"}
         </button>
@@ -99,7 +99,7 @@ function JobCatalog() {
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="border-b border-slate-700 text-slate-400 text-sm">
+            <tr className="border-b border-zinc-700 text-zinc-400 text-sm">
               <th className="py-2 pr-4">ID</th>
               <th className="py-2 pr-4">Description</th>
               <th className="py-2 pr-4"></th>
@@ -107,7 +107,7 @@ function JobCatalog() {
           </thead>
           <tbody>
             {jobTypes.map((j) => (
-              <tr key={j.job_no} className="border-b border-slate-800 hover:bg-slate-800/50">
+              <tr key={j.job_no} className="border-b border-zinc-800 hover:bg-zinc-800/50">
                 <td className="py-2 pr-4">{j.job_no}</td>
                 <td className="py-2 pr-4">{j.job_desc}</td>
                 <td className="py-2 pr-4">
