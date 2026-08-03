@@ -1,25 +1,65 @@
 # PrimeAutocare
 
-A vehicle service center management system: tracks customers, vehicles, jobs
-(from creation through completion), invoicing, and employee attendance.
+A full-stack vehicle service center management system built with a **FastAPI
+REST API** backend and a **React 19 single-page application** frontend. It
+tracks customers, vehicles, service jobs (creation through completion),
+invoicing, payments, and employee attendance against a normalized
+**PostgreSQL** schema.
 
 Built as a portfolio project by a two-person team —
 [Inuka Wijerathna](https://github.com/InukaWijerathna) and
 [Senuka Wijerathna](https://github.com/SenukaWijerathna) —
 under the [PrimeAutocare](https://github.com/PrimeAutocare) organisation. The
-project is designed to run itself: the app is deployed on Vercel, and
-[Reporting_Automation](https://github.com/PrimeAutocare/Reporting_Automation)
-generates business reports from the live database on a fortnightly cron,
-publishing them to
-[Generated_Reports](https://github.com/PrimeAutocare/Generated_Reports) with no
-human in the loop.
+project is designed to run itself with zero manual intervention:
+
+- The app is **deployed on Vercel** as a serverless function (FastAPI wrapped
+  for the Python runtime) with a static frontend build.
+- [Activity_Simulator](https://github.com/PrimeAutocare/Activity_Simulator)
+  drives the live REST API on a **GitHub Actions cron schedule**, authenticating
+  as a bot employee to simulate realistic day-to-day shop activity (job status
+  transitions, invoicing, payments), and backfills employee attendance
+  worklogs directly against Postgres.
+- [Reporting_Automation](https://github.com/PrimeAutocare/Reporting_Automation)
+  runs a fortnightly **ETL pipeline** against the live database, generating
+  business intelligence reports and publishing them to
+  [Generated_Reports](https://github.com/PrimeAutocare/Generated_Reports) with
+  no human in the loop.
+
+## Technical Highlights
+
+- **Backend** — Python REST API built with **FastAPI**, **SQLAlchemy ORM**, and
+  **Pydantic** schema validation; layered router/schema/model architecture
+  with dependency-injected database sessions
+- **Authentication & Authorization** — **JWT** (JSON Web Token) access tokens
+  issued on login, transported via **httpOnly, secure cookies**; **bcrypt**
+  password hashing; **role-based access control (RBAC)** enforced through
+  FastAPI dependency injection (`require_role`) across Admin, Supervisor, and
+  Technician roles
+- **Database** — **PostgreSQL** (hosted on Neon) with a normalized relational
+  schema: primary/foreign key constraints, `CHECK` constraints enforcing
+  business rules (e.g. a job can't move to "in-progress" without an assigned
+  technician), and human-readable sequence-generated identifiers
+- **API Design** — RESTful **CRUD** endpoints across nine resources (jobs,
+  invoices, payments, customers, vehicles, employees, job types, attendance,
+  auth), consistent HTTP status codes, and structured error handling that
+  maps database integrity errors to `409 Conflict` responses
+- **Frontend** — **React 19** functional components with hooks, **Vite** build
+  tooling, **Tailwind CSS v4** utility-first styling, **React Router v7**
+  client-side routing, and a component-based, responsive UI
+- **Testing & CI/CD** — **pytest** for backend unit tests, **Vitest** +
+  **React Testing Library** for frontend component tests, automated via
+  **GitHub Actions CI/CD pipelines** on every push
+- **DevOps** — **Docker Compose** for local multi-service orchestration
+  (Postgres + backend + frontend), environment-based configuration, and
+  serverless deployment via **Vercel**
 
 ## Repositories
 
 | Repository | What it is |
 | --- | --- |
-| **PrimeAutocare** (this repo) | The application: API, frontend, database schema |
-| [Reporting_Automation](https://github.com/PrimeAutocare/Reporting_Automation) | Scheduled Groovy scripts that build Excel reports from the database |
+| **PrimeAutocare** (this repo) | The application: REST API, frontend SPA, database schema |
+| [Activity_Simulator](https://github.com/PrimeAutocare/Activity_Simulator) | Scheduled bot that simulates day-to-day shop activity via the live API and backfills attendance worklogs directly in Postgres |
+| [Reporting_Automation](https://github.com/PrimeAutocare/Reporting_Automation) | Scheduled Groovy ETL scripts that build Excel business reports from the database |
 | [Generated_Reports](https://github.com/PrimeAutocare/Generated_Reports) | Where those reports land, current + archive per period |
 
 ## Structure
