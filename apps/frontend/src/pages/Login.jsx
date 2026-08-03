@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../context/useAuth";
+import primeLogo from "../assets/prime-logo.png";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -23,7 +24,7 @@ function Login() {
         onSubmit={handleSubmit}
         className="bg-zinc-800 p-8 rounded-lg shadow-lg w-full max-w-sm"
       >
-        <h1 className="text-2xl font-bold text-white mb-6">PrimeAutocare</h1>
+        <img src={primeLogo} alt="PrimeAutocare" className="h-16 mx-auto mb-6 object-contain" />
 
         {error && (
           <p className="bg-red-500/10 text-red-400 text-sm p-2 rounded mb-4">

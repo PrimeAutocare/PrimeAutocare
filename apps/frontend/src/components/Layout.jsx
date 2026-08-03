@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { useAuth } from "../context/useAuth";
+import primeLogo from "../assets/prime-logo.png";
 
 const ADMIN_NAV = [
   { to: "/", label: "Dashboard" },
@@ -28,7 +29,11 @@ function Layout() {
   return (
     <div className="h-screen flex bg-zinc-900 text-white overflow-hidden">
       <aside className="w-64 h-screen bg-zinc-800 flex flex-col p-4 sticky top-0">
-        <h1 className="text-xl font-bold mb-8 shrink-0">PrimeAutocare</h1>
+        <img
+          src={primeLogo}
+          alt="PrimeAutocare"
+          className="h-10 mb-8 shrink-0 object-contain"
+        />
 
         <nav className="flex flex-col gap-1 flex-1 overflow-y-auto">
           {navItems.map((item) => (
