@@ -3,6 +3,58 @@ import { get } from "../api/client";
 import { useAuth } from "../context/useAuth";
 import { canManage } from "../context/canManage";
 
+function ClockIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l3.75 2.25M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+    </svg>
+  );
+}
+
+function ArrowPathIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M16.023 9.348h4.992v-4.99M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182"
+      />
+    </svg>
+  );
+}
+
+function CheckCircleIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+    </svg>
+  );
+}
+
+function CurrencyDollarIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+      />
+    </svg>
+  );
+}
+
+function ArrowRightOnRectangleIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} {...props}>
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H3"
+      />
+    </svg>
+  );
+}
+
 function Dashboard() {
   const { employee } = useAuth();
   const isAdmin = canManage(employee, ["A"]);
@@ -36,7 +88,7 @@ function Dashboard() {
     })();
   }, []);
 
-  if (loading) return <p className="text-slate-400">Loading...</p>;
+  if (loading) return <p className="text-zinc-400">Loading...</p>;
   if (error) return <p className="text-red-400">{error}</p>;
 
   const today = new Date().toISOString().split("T")[0];
@@ -51,15 +103,15 @@ function Dashboard() {
 
   const cards = isAdmin
     ? [
-        { label: "Pending Jobs", value: pendingJobs, color: "bg-yellow-600" },
-        { label: "In-Progress Jobs", value: inProgressJobs, color: "bg-amber-600" },
-        { label: "Completed Today", value: completedToday, color: "bg-green-600" },
-        { label: "Outstanding Invoices", value: outstandingInvoices, color: "bg-red-600" },
+        { label: "Pending Jobs", value: pendingJobs, icon: ClockIcon, tint: "text-yellow-400 bg-yellow-500/10" },
+        { label: "In-Progress Jobs", value: inProgressJobs, icon: ArrowPathIcon, tint: "text-blue-400 bg-blue-500/10" },
+        { label: "Completed Today", value: completedToday, icon: CheckCircleIcon, tint: "text-green-400 bg-green-500/10" },
+        { label: "Outstanding Invoices", value: outstandingInvoices, icon: CurrencyDollarIcon, tint: "text-red-400 bg-red-500/10" },
       ]
     : [
-        { label: "My Pending Jobs", value: pendingJobs, color: "bg-yellow-600" },
-        { label: "My In-Progress Jobs", value: inProgressJobs, color: "bg-amber-600" },
-        { label: "My Completed Today", value: completedToday, color: "bg-green-600" },
+        { label: "My Pending Jobs", value: pendingJobs, icon: ClockIcon, tint: "text-yellow-400 bg-yellow-500/10" },
+        { label: "My In-Progress Jobs", value: inProgressJobs, icon: ArrowPathIcon, tint: "text-blue-400 bg-blue-500/10" },
+        { label: "My Completed Today", value: completedToday, icon: CheckCircleIcon, tint: "text-green-400 bg-green-500/10" },
       ];
 
   const recentJobs = [...jobs].sort((a, b) => (a.job_id < b.job_id ? 1 : -1)).slice(0, 5);
@@ -69,23 +121,35 @@ function Dashboard() {
       <h2 className="text-2xl font-bold mb-2">
         Welcome, {employee.emp_gname}
       </h2>
-      <p className="text-slate-400 mb-8">Here's what's happening at PrimeAutocare today.</p>
+      <p className="text-zinc-400 mb-8">Here's what's happening at PrimeAutocare today.</p>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-        {cards.map((card) => (
-          <div key={card.label} className={`${card.color} rounded-lg p-5`}>
-            <p className="text-3xl font-bold text-white">{card.value}</p>
-            <p className="text-sm text-white/80 mt-1">{card.label}</p>
-          </div>
-        ))}
+        {cards.map((card) => {
+          const Icon = card.icon;
+          return (
+            <div
+              key={card.label}
+              className="bg-zinc-800 rounded-xl p-5 shadow-sm shadow-black/20 hover:shadow-md hover:shadow-black/30 transition"
+            >
+              <div className={`inline-flex p-2 rounded-lg mb-3 ${card.tint}`}>
+                <Icon className="w-5 h-5" />
+              </div>
+              <p className="text-3xl font-bold text-white">{card.value}</p>
+              <p className="text-sm text-zinc-400 mt-1">{card.label}</p>
+            </div>
+          );
+        })}
         {!isAdmin && (
-          <div className="bg-blue-600 rounded-lg p-5">
+          <div className="bg-zinc-800 rounded-xl p-5 shadow-sm shadow-black/20 hover:shadow-md hover:shadow-black/30 transition">
+            <div className="inline-flex p-2 rounded-lg mb-3 text-cyan-400 bg-cyan-500/10">
+              <ArrowRightOnRectangleIcon className="w-5 h-5" />
+            </div>
             <p className="text-xl font-bold text-white">
               {openAttendance
                 ? `Since ${new Date(openAttendance.clock_in).toLocaleTimeString()}`
                 : "Clocked out"}
             </p>
-            <p className="text-sm text-white/80 mt-1">Clock-in Status</p>
+            <p className="text-sm text-zinc-400 mt-1">Clock-in Status</p>
           </div>
         )}
       </div>
@@ -94,7 +158,7 @@ function Dashboard() {
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="border-b border-slate-700 text-slate-400 text-sm">
+            <tr className="border-b border-zinc-700 text-zinc-400 text-sm">
               <th className="py-2 pr-4">ID</th>
               <th className="py-2 pr-4">Vehicle</th>
               <th className="py-2 pr-4">Job</th>
@@ -103,7 +167,7 @@ function Dashboard() {
           </thead>
           <tbody>
             {recentJobs.map((j) => (
-              <tr key={j.job_id} className="border-b border-slate-800">
+              <tr key={j.job_id} className="border-b border-zinc-800 hover:bg-zinc-800/50">
                 <td className="py-2 pr-4">{j.job_id}</td>
                 <td className="py-2 pr-4">{j.vehi_id}</td>
                 <td className="py-2 pr-4">{j.job_no}</td>
@@ -112,7 +176,7 @@ function Dashboard() {
             ))}
             {recentJobs.length === 0 && (
               <tr>
-                <td colSpan={4} className="py-4 text-slate-500">No jobs yet.</td>
+                <td colSpan={4} className="py-4 text-zinc-500">No jobs yet.</td>
               </tr>
             )}
           </tbody>
