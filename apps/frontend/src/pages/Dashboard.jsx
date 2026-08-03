@@ -111,15 +111,15 @@ function Dashboard() {
 
   const cards = isAdmin
     ? [
-        { label: "Pending Jobs", value: pendingJobs, icon: ClockIcon, color: "bg-yellow-600" },
-        { label: "In-Progress Jobs", value: inProgressJobs, icon: ArrowPathIcon, color: "bg-blue-600" },
-        { label: "Completed Today", value: completedToday, icon: CheckCircleIcon, color: "bg-green-600" },
-        { label: "Outstanding Invoices", value: outstandingInvoices, icon: CurrencyDollarIcon, color: "bg-red-600" },
+        { label: "Pending Jobs", value: pendingJobs, icon: ClockIcon, color: "bg-amber-700" },
+        { label: "In-Progress Jobs", value: inProgressJobs, icon: ArrowPathIcon, color: "bg-teal-700" },
+        { label: "Completed Today", value: completedToday, icon: CheckCircleIcon, color: "bg-green-700" },
+        { label: "Outstanding Invoices", value: outstandingInvoices, icon: CurrencyDollarIcon, color: "bg-red-700" },
       ]
     : [
-        { label: "My Pending Jobs", value: pendingJobs, icon: ClockIcon, color: "bg-yellow-600" },
-        { label: "My In-Progress Jobs", value: inProgressJobs, icon: ArrowPathIcon, color: "bg-blue-600" },
-        { label: "My Completed Today", value: completedToday, icon: CheckCircleIcon, color: "bg-green-600" },
+        { label: "My Pending Jobs", value: pendingJobs, icon: ClockIcon, color: "bg-amber-700" },
+        { label: "My In-Progress Jobs", value: inProgressJobs, icon: ArrowPathIcon, color: "bg-teal-700" },
+        { label: "My Completed Today", value: completedToday, icon: CheckCircleIcon, color: "bg-green-700" },
       ];
 
   const recentJobs = [...jobs].sort((a, b) => (a.job_id < b.job_id ? 1 : -1)).slice(0, 5);
@@ -148,7 +148,7 @@ function Dashboard() {
           );
         })}
         {!isAdmin && (
-          <div className="bg-cyan-600 rounded-xl p-5 shadow-sm shadow-black/20 hover:shadow-md hover:shadow-black/30 transition">
+          <div className="bg-cyan-700 rounded-xl p-5 shadow-sm shadow-black/20 hover:shadow-md hover:shadow-black/30 transition">
             <div className="inline-flex p-2 rounded-lg mb-3 bg-white/15 text-white">
               <ArrowRightOnRectangleIcon className="w-5 h-5" />
             </div>
