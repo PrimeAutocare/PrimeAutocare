@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { get, post, del } from "../api/client";
+import Modal from "../components/Modal";
 
 function JobCatalog() {
   const [jobTypes, setJobTypes] = useState([]);
@@ -7,6 +8,7 @@ function JobCatalog() {
   const [error, setError] = useState("");
   const [formError, setFormError] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const [jobDesc, setJobDesc] = useState("");
 
@@ -29,13 +31,19 @@ function JobCatalog() {
     })();
   }, []);
 
+  function resetForm() {
+    setJobDesc("");
+    setFormError("");
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     setFormError("");
     setSubmitting(true);
     try {
       await post("/job-types", { job_desc: jobDesc });
-      setJobDesc("");
+      resetForm();
+      setShowModal(false);
       await loadJobTypes();
     } catch (err) {
       setFormError(err.message);
@@ -59,40 +67,13 @@ function JobCatalog() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-6">Job Catalog</h2>
-
-      <form
-        onSubmit={handleSubmit}
-        className="bg-zinc-800 p-6 rounded-lg mb-8 flex flex-col gap-4 max-w-lg"
-      >
-        <h3 className="text-lg font-semibold">Add New Job Type</h3>
-
-        {formError && (
-          <p className="bg-red-500/10 text-red-400 text-sm p-2 rounded">
-            {formError}
-          </p>
-        )}
-
-        <div>
-          <label className="block text-zinc-300 text-sm mb-1">Description</label>
-          <input
-            type="text"
-            value={jobDesc}
-            onChange={(e) => setJobDesc(e.target.value)}
-            placeholder="e.g. Tyre Rotation"
-            className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500"
-            required
-          />
-        </div>
-
-        <button
-          type="submit"
-          disabled={submitting}
-          className="bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white font-semibold py-2 rounded transition"
-        >
-          {submitting ? "Adding..." : "Add Job Type"}
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold text-white">Job Catalog</h2>
+        <button onClick={() => setShowModal(true)}
+          className="bg-amber-600 hover:bg-amber-500 text-white font-semibold px-4 py-2 rounded transition">
+          + Add Job Type
         </button>
-      </form>
+      </div>
 
       {error && <p className="text-red-400 mb-4">{error}</p>}
 
@@ -108,8 +89,8 @@ function JobCatalog() {
           <tbody>
             {jobTypes.map((j) => (
               <tr key={j.job_no} className="border-b border-zinc-800 hover:bg-zinc-800/50">
-                <td className="py-2 pr-4">{j.job_no}</td>
-                <td className="py-2 pr-4">{j.job_desc}</td>
+                <td className="py-2 pr-4 text-white">{j.job_no}</td>
+                <td className="py-2 pr-4 text-white">{j.job_desc}</td>
                 <td className="py-2 pr-4">
                   <button
                     onClick={() => handleDelete(j.job_no)}
@@ -123,6 +104,27 @@ function JobCatalog() {
           </tbody>
         </table>
       </div>
+
+      <Modal isOpen={showModal} onClose={() => { setShowModal(false); resetForm(); }} title="Add New Job Type">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          {formError && <p className="bg-red-500/10 text-red-400 text-sm p-2 rounded">{formError}</p>}
+          <div>
+            <label className="block text-zinc-300 text-sm mb-1">Description</label>
+            <input
+              type="text"
+              value={jobDesc}
+              onChange={(e) => setJobDesc(e.target.value)}
+              placeholder="e.g. Tyre Rotation"
+              className="w-full p-2 rounded bg-zinc-700 text-white outline-none focus:ring-2 focus:ring-amber-500"
+              required
+            />
+          </div>
+          <button type="submit" disabled={submitting}
+            className="bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white font-semibold py-2 rounded transition">
+            {submitting ? "Adding..." : "Add Job Type"}
+          </button>
+        </form>
+      </Modal>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { get } from "../api/client";
+import { get, patch } from "../api/client";
 
 const STATUS_LABELS = {
   U: "Unpaid",
@@ -15,7 +15,11 @@ const STATUS_STYLES = {
   V: "text-zinc-500",
 };
 
+const STATUS_OPTIONS = Object.entries(STATUS_LABELS).map(([value, label]) => ({ value, label }));
+
 const METHOD_LABELS = { C: "Cash", R: "Card", T: "Transfer", Q: "Cheque" };
+
+const METHOD_OPTIONS = Object.entries(METHOD_LABELS).map(([value, label]) => ({ value, label }));
 
 function Invoices() {
   const [invoices, setInvoices] = useState([]);
@@ -45,6 +49,26 @@ function Invoices() {
       await loadAll();
     })();
   }, []);
+
+  async function handleStatusChange(invNo, newStatus) {
+    setError("");
+    try {
+      await patch(`/invoices/${invNo}`, { inv_status: newStatus });
+      await loadAll();
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+
+  async function handleMethodChange(payNo, newMethod) {
+    setError("");
+    try {
+      await patch(`/payments/${payNo}`, { pay_method: newMethod });
+      await loadAll();
+    } catch (err) {
+      setError(err.message);
+    }
+  }
 
   const paidByInvoice = payments.reduce((acc, p) => {
     acc[p.inv_no] = (acc[p.inv_no] ?? 0) + Number(p.pay_amount);
@@ -100,10 +124,7 @@ function Invoices() {
             {invoices.map((i) => {
               const paid = paidByInvoice[i.inv_no] ?? 0;
               const balance = Number(i.inv_total) - paid;
-              const methods = payments
-                .filter((p) => p.inv_no === i.inv_no)
-                .map((p) => METHOD_LABELS[p.pay_method] ?? p.pay_method)
-                .join(", ");
+              const invoicePayments = payments.filter((p) => p.inv_no === i.inv_no);
               return (
                 <tr key={i.inv_no} className="border-b border-zinc-800 hover:bg-zinc-800/50">
                   <td className="py-2 pr-4 text-white">{i.inv_no}</td>
@@ -112,10 +133,37 @@ function Invoices() {
                   <td className="py-2 pr-4 text-zinc-300">{money(i.inv_total)}</td>
                   <td className="py-2 pr-4 text-zinc-300">{money(paid)}</td>
                   <td className="py-2 pr-4 text-zinc-300">{money(balance)}</td>
-                  <td className={`py-2 pr-4 ${STATUS_STYLES[i.inv_status] ?? ""}`}>
-                    {STATUS_LABELS[i.inv_status] ?? i.inv_status}
+                  <td className="py-2 pr-4">
+                    <select
+                      value={i.inv_status}
+                      onChange={(e) => handleStatusChange(i.inv_no, e.target.value)}
+                      className={`bg-zinc-700 text-sm rounded px-2 py-1 outline-none focus:ring-2 focus:ring-amber-500 ${STATUS_STYLES[i.inv_status] ?? "text-white"}`}
+                    >
+                      {STATUS_OPTIONS.map((opt) => (
+                        <option key={opt.value} value={opt.value}>{opt.label}</option>
+                      ))}
+                    </select>
                   </td>
-                  <td className="py-2 pr-4 text-zinc-400 text-sm">{methods || "-"}</td>
+                  <td className="py-2 pr-4 text-zinc-400 text-sm">
+                    {invoicePayments.length === 0 ? (
+                      "-"
+                    ) : (
+                      <div className="flex flex-col gap-1">
+                        {invoicePayments.map((p) => (
+                          <select
+                            key={p.pay_no}
+                            value={p.pay_method}
+                            onChange={(e) => handleMethodChange(p.pay_no, e.target.value)}
+                            className="bg-zinc-700 text-white text-xs rounded px-1.5 py-0.5 outline-none focus:ring-2 focus:ring-amber-500"
+                          >
+                            {METHOD_OPTIONS.map((opt) => (
+                              <option key={opt.value} value={opt.value}>{opt.label}</option>
+                            ))}
+                          </select>
+                        ))}
+                      </div>
+                    )}
+                  </td>
                 </tr>
               );
             })}

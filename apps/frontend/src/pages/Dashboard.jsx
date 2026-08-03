@@ -56,7 +56,12 @@ function ArrowRightOnRectangleIcon(props) {
 }
 
 const STATUS_LABELS = { P: "Pending", I: "In-progress", C: "Completed", X: "Cancelled" };
-const STATUS_STYLES = { P: "text-yellow-400", I: "text-blue-400", C: "text-green-400", X: "text-zinc-500" };
+const STATUS_STYLES = {
+  P: "bg-yellow-500/15 text-yellow-400",
+  I: "bg-blue-500/15 text-blue-400",
+  C: "bg-green-500/15 text-green-400",
+  X: "bg-zinc-500/15 text-zinc-400",
+};
 
 function Dashboard() {
   const { employee } = useAuth();
@@ -174,8 +179,10 @@ function Dashboard() {
                 <td className="py-2 pr-4">{j.job_id}</td>
                 <td className="py-2 pr-4">{j.vehi_id}</td>
                 <td className="py-2 pr-4">{j.job_no}</td>
-                <td className={`py-2 pr-4 ${STATUS_STYLES[j.status] ?? ""}`}>
-                  {STATUS_LABELS[j.status] ?? j.status}
+                <td className="py-2 pr-4">
+                  <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${STATUS_STYLES[j.status] ?? ""}`}>
+                    {STATUS_LABELS[j.status] ?? j.status}
+                  </span>
                 </td>
               </tr>
             ))}
