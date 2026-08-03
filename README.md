@@ -25,6 +25,19 @@ project is designed to run itself with zero manual intervention:
   [Generated_Reports](https://github.com/PrimeAutocare/Generated_Reports) with
   no human in the loop.
 
+## Architecture
+
+```mermaid
+flowchart LR
+    U["Browser"] --> F["React SPA<br/>(Vercel static build)"]
+    F -- "/api/*" --> A["FastAPI backend<br/>(Vercel serverless function)"]
+    A --> DB[("PostgreSQL<br/>(Neon)")]
+    S["Activity_Simulator<br/>(GitHub Actions cron)"] -- "REST API calls" --> A
+    S -- "direct writes" --> DB
+    R["Reporting_Automation<br/>(GitHub Actions cron)"] -- "JDBC" --> DB
+    R -- "commits .xlsx" --> G["Generated_Reports"]
+```
+
 ## Technical Highlights
 
 - **Backend** — Python REST API built with **FastAPI**, **SQLAlchemy ORM**, and
